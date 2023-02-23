@@ -13,12 +13,12 @@ player.on(
 
 function playBack() {
     const pause = JSON.parse(localStorage.getItem(CURRENT_TIME_KEY));
+    
     if (pause === null) {
         return;
     }
     
-    player.setCurrentTime(pause);
-    
+    player.setCurrentTime(pause); 
 };
 
 playBack();

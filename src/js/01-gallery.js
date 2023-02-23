@@ -19,16 +19,15 @@ function makeGallery(items) {
 
         itemLink.append(itemImg);
         listItem.append(itemLink);
-        return listItem
+        return listItem;
 
     })
-}
+};
 
 const galeryListRef = document.querySelector('.gallery');
 
 const items = makeGallery(galleryItems);
 galeryListRef.append(...items);
-
 
 const gallery = new SimpleLightbox('.gallery a', {
   captionsData: "alt",

@@ -13,8 +13,6 @@ let formData = {};
 loadForm();
 
 function inputsHandler(e) {
-   
-    
     formData[e.target.name] = e.target.value;
 
     localStorage.setItem(FEED_FORM_KEY, JSON.stringify(formData));
