@@ -8,8 +8,17 @@ const player = new Vimeo.Player(iframe);
 
 player.on(
     'timeupdate', throttle((data) => {
-        localStorage.setItem(CURRENT_TIME_KEY, data.seconds);
-        
+        localStorage.setItem(CURRENT_TIME_KEY, JSON.stringify(data.seconds));
     }, 1000));
 
-player.setCurrentTime(localStorage.getItem(CURRENT_TIME_KEY))
+function playBack() {
+    const pause = JSON.parse(localStorage.getItem(CURRENT_TIME_KEY));
+    if (pause === null) {
+        return;
+    }
+    
+    player.setCurrentTime(pause);
+    
+};
+
+playBack();
