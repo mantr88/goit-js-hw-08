@@ -1,18 +1,45 @@
 const throttle = require('lodash.throttle');
 
-const EMAIL_KEY = "email";
-const MESSAGE_KEY = "massage";
-const formRef = document.querySelector('.feedback-form');
+const FEED_FORM_KEY = "feedback-form-state";
 
-function inputsHandler(e) {
-    
-    e.preventDefault()
-    console.log('throtle work!')
-    localStorage.setItem(EMAIL_KEY, e.currentTarget.email.value);
-    localStorage.setItem(MESSAGE_KEY, e.currentTarget.message.value);
-
-
-
+const refs = {
+    form: document.querySelector('.feedback-form'),
+    input: document.querySelector('input'),
+    textarea: document.querySelector('textarea'),
 }
 
-formRef.addEventListener('input', throttle(inputsHandler, 500));
+let formData = {};
+
+loadForm();
+
+function inputsHandler(e) {
+   
+    
+    formData[e.target.name] = e.target.value;
+
+    localStorage.setItem(FEED_FORM_KEY, JSON.stringify(formData));
+};
+
+
+function loadForm() {
+    const saveState = JSON.parse(localStorage.getItem(FEED_FORM_KEY));
+
+    if (saveState === null) return;
+
+    formData = saveState;
+
+    refs.input.value = formData.email;
+    refs.textarea.value = formData.message;
+};
+
+function onSubmitForm(e) {
+    e.preventDefault();
+
+    console.log(JSON.parse(localStorage.getItem(FEED_FORM_KEY)));
+
+    e.currentTarget.reset();
+    localStorage.removeItem(FEED_FORM_KEY);
+}
+
+refs.form.addEventListener('input', throttle(inputsHandler, 500));
+refs.form.addEventListener('submit', onSubmitForm);
