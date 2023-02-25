@@ -26,8 +26,8 @@ function loadForm() {
 
     formData = saveState;
 
-    refs.input.value = formData.email;
-    refs.textarea.value = formData.message;
+    refs.input.value === null ? refs.input.value = ' ' : refs.input.value = formData.email;
+    refs.textarea.value === null ?  refs.textarea.value = ' ' : refs.textarea.value = formData.message;
 };
 
 function onSubmitForm(e) {
